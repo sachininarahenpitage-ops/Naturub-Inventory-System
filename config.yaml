@@ -1,0 +1,34 @@
+# =============================================================================
+# yarn_inventory configuration  (edit these values; code reads them at runtime)
+# =============================================================================
+
+# Service level for safety stock. z = 1.65 -> 95%, z = 2.33 -> 99%.
+service_level_z: 1.65
+
+default_horizon_days: 30
+
+# -----------------------------------------------------------------------------
+# Lead time in DAYS, per raw material. Used for the model-based reorder point
+# and the replenishment-deadline calculation. (Confirmed values from the company.)
+# Cotton and Rubber are kept for future items not yet in the dataset.
+# -----------------------------------------------------------------------------
+lead_time_days:
+  Cotton: 65
+  Nylon: 80
+  Polyester: 70
+  Rubber: 90
+  Sewing Thread: 100
+  Spandex: 60
+  _default: 80          # fallback when a material is not listed
+
+# -----------------------------------------------------------------------------
+# Current stock source. Today this is a STUB. Later, set mode: api and wire the
+# company DB call in forecaster/stock_source.py (one function to implement).
+#   mode: stub  -> use assumed_stock, or a heuristic if assumed_stock is null
+#   mode: file  -> read file_path, a CSV with columns: item,current_stock
+#   mode: api   -> call the (future) DB API  [NOT IMPLEMENTED YET]
+# -----------------------------------------------------------------------------
+stock_source:
+  mode: stub
+  file_path: null
+  assumed_stock: null
